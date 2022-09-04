@@ -1,0 +1,39 @@
+//删除 
+int pop(PriorityQueue *pq, Type *max){
+	int i=1;
+	int maxchild = 0;
+	
+	//判断是否为空 
+	if(is_empty(pq)){
+		printf("Queue is empty!\n");
+		return 0;
+	}
+	//先把最后一个元素取出来 
+	Type last;
+	last = pq->eles[pq->size];
+	
+	//取得最大值 
+	*max = pq->eles[1];
+	printf("Pop %d\n", pq->eles[1]);
+	pq->size --;
+	if(pq->size == 0){ //如果只有一个元素
+		pq->eles[i] = 0; //删除之后变为0 
+		return 1;	
+	}
+	
+	//将第一个元素作为空穴，并不断下移 
+	for(i=1; i * 2 < pq->size; i = maxchild){
+		maxchild = i * 2;
+		//选择两个孩子中的最大值 
+		if(pq->eles[maxchild] < pq->eles[maxchild+1] && maxchild != pq->size)
+			maxchild += 1;
+		
+		//如果last比空穴处的元素小，则空穴还要往下
+		if(last < pq->eles[maxchild])	
+			pq->eles[i] = pq->eles[maxchild];
+		else
+			break;
+	} 
+	pq->eles[i] = last;
+	return 1;	 
+}
