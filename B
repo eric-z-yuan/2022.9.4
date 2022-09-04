@@ -1,0 +1,12 @@
+int destroy(PriorityQueue *pq) {
+	if(pq == NULL){
+		return 0;
+	}
+	free(pq->eles);
+	pq->eles = NULL;
+	free(pq);
+	pq = NULL;
+	
+	printf("destroy success\n");
+	return 1;
+}
